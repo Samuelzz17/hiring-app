@@ -48,7 +48,12 @@ const extractCandidateDataPrompt = ai.definePrompt({
   name: 'extractCandidateDataPrompt',
   input: { schema: ExtractCandidateDataInputSchema },
   output: { schema: ExtractCandidateDataOutputSchema },
-  prompt: `You are an expert HR assistant tasked with extracting key information from a candidate's Curriculum Vitae (CV).
+  prompt: `You are an HR assistant tasked with extracting key, job-relevant information from a candidate's Curriculum Vitae (CV).
+
+Important constraints:
+- Extract only information that is relevant for hiring decisions (contact info, skills, experience, education, links).
+- Do NOT infer or invent missing details.
+- If the CV contains sensitive/protected attributes (e.g., age, gender, race/ethnicity, religion, nationality, disability, marital status, pregnancy, political views), do NOT extract them.
 
 Carefully read the provided CV content and extract the candidate's name, contact details (email, phone, LinkedIn), a list of their skills, their work experience, and their educational background.
 

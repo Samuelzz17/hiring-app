@@ -1,7 +1,8 @@
-import type { Candidate, Stage } from '@/lib/types';
-import StageColumn from './stage-column';
+'use client';
 
-const STAGES: Stage[] = ['Applied', 'Shortlisted', 'Interview', 'Hired'];
+import type { Candidate } from '@/lib/types';
+import StageColumn from './stage-column';
+import { STAGES } from '@/lib/stages';
 
 type CandidateBoardProps = {
   candidates: Candidate[];
@@ -9,7 +10,7 @@ type CandidateBoardProps = {
 
 export default function CandidateBoard({ candidates }: CandidateBoardProps) {
   return (
-    <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-6">
       {STAGES.map((stage) => {
         const candidatesInStage = candidates.filter((c) => c.stage === stage);
         return (

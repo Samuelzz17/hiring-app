@@ -39,8 +39,14 @@ const prompt = ai.definePrompt({
   name: 'scoreCandidateFitPrompt',
   input: {schema: ScoreCandidateFitInputSchema},
   output: {schema: ScoreCandidateFitOutputSchema},
-  prompt: `You are an expert HR recruiter and an AI assistant specializing in candidate screening.
+  prompt: `You are an HR assistant specializing in candidate screening.
 Your task is to analyze a candidate's extracted CV data against a given job description and provide a compatibility score and a detailed explanation.
+
+Important constraints:
+- Use ONLY job-relevant information (skills, experience, education, certifications, portfolio/projects, domain knowledge).
+- Do NOT consider protected or sensitive attributes (e.g., age, gender, race/ethnicity, religion, nationality, disability, marital status, pregnancy, political views) even if mentioned.
+- Do NOT infer any protected attributes.
+- If the job description contains potentially discriminatory requirements, ignore them and focus on legitimate job requirements.
 
 First, carefully review the Job Description and the Candidate's CV Data.
 Then, provide a compatibility score between 0 and 100, where 100 is a perfect match.

@@ -2,6 +2,7 @@ import type { Candidate, Stage } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CandidateCard } from './candidate-card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { STAGE_LABEL } from '@/lib/stages';
 
 type StageColumnProps = {
   title: Stage;
@@ -13,7 +14,7 @@ export default function StageColumn({ title, candidates }: StageColumnProps) {
     <Card className="flex h-full flex-col">
       <CardHeader className="p-4">
         <CardTitle className="flex items-center justify-between text-lg font-semibold">
-          <span>{title}</span>
+          <span>{STAGE_LABEL[title]}</span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-sm font-medium text-muted-foreground">
             {candidates.length}
           </span>
