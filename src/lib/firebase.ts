@@ -35,7 +35,7 @@ if (isConfigValid) {
 let analytics: Analytics | undefined;
 if (typeof window !== "undefined" && app) {
   isSupported().then((supported) => {
-    if (supported) {
+    if (supported && app) {
       analytics = getAnalytics(app);
     }
   });

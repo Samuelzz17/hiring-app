@@ -8,15 +8,13 @@ import {
   updateProfile,
   signInAnonymously
 } from "firebase/auth";
-import { doc, setDoc, getFirestore } from "firebase/firestore";
-import { auth, app } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-
-const db = getFirestore(app);
 
 interface AuthFormProps {
   type: "login" | "signup";
@@ -36,8 +34,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
     setLoading(true);
 
     try {
+      if (!auth || !db) throw new Error("Firebase not initialized");
+
       if (type === "signup") {
-        // Only candidates can sign up via this UI in this MVP
         if (userType === "admin") {
           throw new Error("Admin accounts must be created by an existing administrator.");
         }
@@ -45,10 +44,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Update profile
         await updateProfile(user, { displayName: name });
 
-        // Create user doc in Firestore
         await setDoc(doc(db, "users", user.uid), {
           uid: user.uid,
           email,
@@ -69,54 +66,55 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
         });
       }
 
-        router.push(userType === "admin" ? "/dashboard" : "/jobs");
-        router.refresh();
-      } catch (error: any) {
-        toast({
-          variant: "destructive",
-          title: "Authentication Error",
-          description: error.message || "Something went wrong.",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+      router.push(userType === "admin" ? "/dashboard" : "/jobs");
+      router.refresh();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Authentication Error",
+        description: error.message || "Something went wrong.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleGuestLogin = async () => {
-      setLoading(true);
-      try {
-        const userCredential = await signInAnonymously(auth);
-        const user = userCredential.user;
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    try {
+      if (!auth || !db) throw new Error("Firebase not initialized");
+      
+      const userCredential = await signInAnonymously(auth);
+      const user = userCredential.user;
 
-        // Create/Update user doc in Firestore for the guest
-        await setDoc(doc(db, "users", user.uid), {
-          uid: user.uid,
-          email: "guest@anonymous.com",
-          displayName: "Guest User",
-          role: "candidate",
-          isAnonymous: true,
-          createdAt: new Date(),
-        }, { merge: true });
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: "guest@anonymous.com",
+        displayName: "Guest User",
+        role: "candidate",
+        isAnonymous: true,
+        createdAt: new Date(),
+      }, { merge: true });
 
-        toast({
-          title: "Logged in as Guest",
-          description: "Welcome to JobFlow!",
-        });
+      toast({
+        title: "Logged in as Guest",
+        description: "Welcome to JobFlow!",
+      });
 
-        router.push("/jobs");
-        router.refresh();
-      } catch (error: any) {
-        toast({
-          variant: "destructive",
-          title: "Guest Auth Error",
-          description: error.message || "Something went wrong.",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+      router.push("/jobs");
+      router.refresh();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Guest Auth Error",
+        description: error.message || "Something went wrong.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
+  return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>{type === "login" ? "Login" : "Sign Up"} as {userType === "admin" ? "Admin" : "Candidate"}</CardTitle>

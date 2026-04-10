@@ -24,7 +24,11 @@ export default function Home() {
                 <p className="text-sm font-medium">{profile?.displayName || user.email}</p>
                 <p className="text-xs text-muted-foreground capitalize">{profile?.role || 'User'}</p>
               </div>
-              <Button variant="outline" size="sm" onClick={() => signOut(auth)}>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => auth && signOut(auth)}
+              >
                 Logout
               </Button>
             </div>
