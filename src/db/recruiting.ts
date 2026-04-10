@@ -305,3 +305,19 @@ export async function setEmployeeStartDate(input: { employeeId: string; startDat
   const { employees } = collections();
   await employees.doc(input.employeeId).set({ startDate: input.startDate }, { merge: true });
 }
+
+export async function getSystemStats() {
+  const { jobs, applications, employees } = collections();
+  
+  const [jobsSnap, appsSnap, empsSnap] = await Promise.all([
+    jobs.count().get(),
+    applications.where('stage', '!=', 'REJECTED').count().get(),
+    employees.count().get()
+  ]);
+
+  return {
+    totalJobs: jobsSnap.data().count,
+    activeApplications: appsSnap.data().count,
+    totalEmployees: empsSnap.data().count
+  };
+}

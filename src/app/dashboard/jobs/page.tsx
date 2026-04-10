@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { createJobAction, updateJobStatusAction } from '@/app/_actions/recruiting';
 import { listJobs } from '@/db/recruiting';
 import { Button } from '@/components/ui/button';
