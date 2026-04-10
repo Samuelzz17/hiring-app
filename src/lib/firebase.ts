@@ -15,13 +15,16 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase only if config is available (avoid breaking the build)
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
 let db: Firestore | null = null;
 let storage: FirebaseStorage | null = null;
 
-if (firebaseConfig.apiKey) {
+const isConfigValid = firebaseConfig.apiKey && 
+                  firebaseConfig.apiKey !== "undefined" && 
+                  firebaseConfig.apiKey !== "null";
+
+if (isConfigValid) {
   app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
   auth = getAuth(app);
   db = getFirestore(app);
