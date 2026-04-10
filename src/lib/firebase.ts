@@ -1,9 +1,9 @@
 import "dotenv/config";
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
+import { getAnalytics, isSupported, Analytics } from "firebase/analytics";
+import { getAuth, Auth } from "firebase/auth";
+import { getFirestore, Firestore } from "firebase/firestore";
+import { getStorage, FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,15 +15,22 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase only if it hasn't been initialized already
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+// Initialize Firebase only if config is available (avoid breaking the build)
+let app: FirebaseApp | null = null;
+let auth: Auth | null = null;
+let db: Firestore | null = null;
+let storage: FirebaseStorage | null = null;
 
-// Initialize Analytics conditionally (safeguard for SSR)
-let analytics: ReturnType<typeof getAnalytics> | undefined;
-if (typeof window !== "undefined") {
+if (firebaseConfig.apiKey) {
+  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  storage = getStorage(app);
+}
+
+// Initialize Analytics conditionally (safeguard for SSR and build time)
+let analytics: Analytics | undefined;
+if (typeof window !== "undefined" && app) {
   isSupported().then((supported) => {
     if (supported) {
       analytics = getAnalytics(app);
