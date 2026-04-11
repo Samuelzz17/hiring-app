@@ -14,13 +14,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Star } from 'lucide-react';
+import { Star, FileText } from 'lucide-react';
 import { STAGES, STAGE_LABEL } from '@/lib/stages';
 import { updateApplicationStageAction } from '@/app/_actions/recruiting';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { CandidateDetailModal } from './candidate-detail-modal';
 
 export function CandidateCard({ candidate }: { candidate: Candidate }) {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const getInitials = (name: string) => {
     return name
@@ -65,23 +68,46 @@ export function CandidateCard({ candidate }: { candidate: Candidate }) {
           </Tooltip>
         </TooltipProvider>
 
-        <form ref={formRef} action={updateApplicationStageAction} className="mt-3 flex items-center gap-2">
+        <form ref={formRef} action={updateApplicationStageAction} className="mt-4 flex flex-col gap-2">
           <input type="hidden" name="applicationId" value={candidate.applicationId} />
-          <label className="text-xs text-muted-foreground">Stage</label>
-          <select
-            name="stage"
-            defaultValue={candidate.stage}
-            className="h-8 flex-1 rounded-md border border-input bg-background px-2 text-xs"
-            onChange={() => formRef.current?.requestSubmit()}
+          
+          <Button 
+            type="button" 
+            variant="outline" 
+            size="sm" 
+            className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100"
+            onClick={(e) => {
+              e.preventDefault();
+              setModalOpen(true);
+            }}
           >
-            {STAGES.map((s) => (
-              <option key={s} value={s}>
-                {STAGE_LABEL[s]}
-              </option>
-            ))}
-          </select>
+            <FileText className="h-3.5 w-3.5 mr-1.5 text-slate-500" />
+            View Details
+          </Button>
+
+          <div className="flex gap-2 items-center">
+            <select
+              name="stage"
+              defaultValue={candidate.stage}
+              className="h-8 flex-1 rounded-md border border-input bg-background font-medium px-2 text-xs"
+              onChange={() => formRef.current?.requestSubmit()}
+            >
+              {STAGES.map((s) => (
+                <option key={s} value={s}>
+                  {STAGE_LABEL[s]}
+                </option>
+              ))}
+            </select>
+          </div>
         </form>
       </CardContent>
+
+      <CandidateDetailModal 
+        applicationId={candidate.applicationId}
+        candidateName={candidate.name}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
     </Card>
   );
 }
