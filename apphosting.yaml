@@ -1,7 +1,42 @@
-# Settings to manage and configure a Firebase App Hosting backend.
-# https://firebase.google.com/docs/app-hosting/configure
+# apphosting.yaml
+# Firebase App Hosting Configuration File
 
-runConfig:
-  # Increase this value if you'd like to automatically spin up
-  # more instances in response to increased traffic.
-  maxInstances: 1
+env:
+  # ====================================================
+  # NON-SENSITIVE CONFIGURATIONS (Public & Project Info)
+  # ====================================================
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: "AIzaSyDAmif7Ey6Y7E_uFJH3i5DAAZOYpoHcVFU"
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: "hiring-app-4679d.firebaseapp.com"
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: "hiring-app-4679d"
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: "hiring-app-4679d.firebasestorage.app"
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "706162478968"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: "1:706162478968:web:161becd68690c36253028d"
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: "G-8JLMDWN0T2"
+  
+  - variable: FIREBASE_PROJECT_ID
+    value: "hiring-app-4679d"
+  - variable: FIREBASE_STORAGE_BUCKET
+    value: "hiring-app-4679d.firebasestorage.app"
+
+  # ====================================================
+  # HIGHLY SENSITIVE SECRETS
+  # ====================================================
+  # The variables below refer to secrets in Google Cloud Secret Manager.
+  # You must create these strictly through the Firebase Console or Google Cloud Console.
+  # The string indicated by "secret:" is just the "NAME" of the secret vault, not the actual value.
+  
+  - variable: GEMINI_API_KEY
+    secret: GEMINI_API_KEY
+
+  - variable: FIREBASE_CLIENT_EMAIL
+    secret: FIREBASE_CLIENT_EMAIL
+
+  - variable: FIREBASE_PRIVATE_KEY
+    secret: FIREBASE_PRIVATE_KEY
