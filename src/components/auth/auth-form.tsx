@@ -131,6 +131,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
               <Label htmlFor="name">Full Name</Label>
               <Input 
                 id="name" 
+                autoComplete="name"
                 placeholder="John Doe" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
@@ -143,6 +144,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
             <Input 
               id="email" 
               type="email" 
+              autoComplete="email"
               placeholder="name@example.com" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
@@ -154,6 +156,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
             <Input 
               id="password" 
               type="password" 
+              autoComplete="current-password"
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
