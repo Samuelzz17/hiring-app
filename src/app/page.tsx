@@ -14,7 +14,7 @@ export default function Home() {
       <header className="flex items-center justify-between border-b pb-4">
         <div className="space-y-1">
           <h1 className="font-headline text-3xl font-bold">JobFlow</h1>
-          <p className="text-sm text-muted-foreground">Sistem lamaran kerja AI-Powered</p>
+          <p className="text-sm text-muted-foreground">AI-Powered Job Application System</p>
         </div>
         
         <div className="flex items-center gap-2">
@@ -49,22 +49,22 @@ export default function Home() {
         <Card>
           <CardHeader>
             <CardTitle>Public Job Board</CardTitle>
-            <CardDescription>Halaman lowongan untuk kandidat.</CardDescription>
+            <CardDescription>Job listing page for candidates.</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild>
-              <Link href="/jobs">Lihat Lowongan</Link>
+              <Link href="/jobs">View Jobs</Link>
             </Button>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle>Dashboard</CardTitle>
-            <CardDescription>Kelola kandidat, stage, job, dan employee.</CardDescription>
+            <CardDescription>Manage candidates, stages, jobs, and employees.</CardDescription>
           </CardHeader>
           <CardContent>
             <Button variant="secondary" asChild>
-              <Link href="/dashboard">Buka Dashboard</Link>
+              <Link href="/dashboard">Open Dashboard</Link>
             </Button>
           </CardContent>
         </Card>

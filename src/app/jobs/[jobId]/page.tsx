@@ -19,7 +19,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
         <div className="mx-auto w-full max-w-5xl px-6 h-14 flex items-center justify-between">
           <Button variant="ghost" size="sm" asChild className="-ml-2 gap-1 text-slate-500 hover:text-slate-900">
             <Link href="/jobs">
-              <ChevronLeft className="h-4 w-4" /> Kembali ke Lowongan
+              <ChevronLeft className="h-4 w-4" /> Back to Jobs
             </Link>
           </Button>
           <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
                   <Badge variant="secondary">{job.status}</Badge>
                 )}
                 <span className="text-xs text-slate-400 flex items-center gap-1">
-                  <Calendar className="h-3 w-3" /> Diposting {new Date(job.createdAt).toLocaleDateString()}
+                  <Calendar className="h-3 w-3" /> Posted {new Date(job.createdAt).toLocaleDateString()}
                 </span>
               </div>
               
@@ -68,7 +68,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
               <section className="space-y-4">
                 <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                   <Info className="h-5 w-5 text-primary" />
-                  Deskripsi Pekerjaan
+                  Job Description
                 </h3>
                 <div className="bg-white rounded-xl p-6 border shadow-sm whitespace-pre-wrap text-slate-600 leading-relaxed">
                   {job.description}
@@ -79,7 +79,7 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
                 <section className="space-y-4">
                   <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    Kualifikasi & Persyaratan
+                    Qualifications & Requirements
                   </h3>
                   <div className="bg-white rounded-xl p-6 border shadow-sm whitespace-pre-wrap text-slate-600 leading-relaxed">
                     {job.requirements}
@@ -93,29 +93,29 @@ export default async function JobDetailPage({ params }: { params: { jobId: strin
           <div className="md:col-span-1">
             <Card className="sticky top-24 border-primary/20 shadow-xl shadow-primary/5">
               <CardHeader className="bg-slate-50/50 border-b">
-                <CardTitle className="text-lg">Tertarik dengan posisi ini?</CardTitle>
+                <CardTitle className="text-lg">Interested in this position?</CardTitle>
                 <CardDescription>
-                  Klik tombol di bawah untuk mengisi formulir lamaran.
+                  Click the button below to fill out the application form.
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6 space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <span>Proses seleksi cepat</span>
+                    <span>Fast selection process</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <span>Dukungan AI Recruiting</span>
+                    <span>AI Recruiting support</span>
                   </div>
                 </div>
                 
                 <Button asChild className="w-full h-11 text-base font-semibold" disabled={job.status !== 'OPEN'}>
-                  <Link href={`/jobs/${job.id}/apply`}>Lamar Sekarang</Link>
+                  <Link href={`/jobs/${job.id}/apply`}>Apply Now</Link>
                 </Button>
                 
                 <p className="text-[10px] text-center text-slate-400 uppercase tracking-widest font-bold">
-                  Batas waktu tidak ditentukan
+                  No deadline specified
                 </p>
               </CardContent>
             </Card>

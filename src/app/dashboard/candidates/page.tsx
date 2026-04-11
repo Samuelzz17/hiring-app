@@ -35,7 +35,7 @@ export default async function CandidatesPage({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-headline text-2xl font-bold">Candidate Board</h1>
-          <p className="text-muted-foreground">Pindahkan stage, dan otomatis buat employee saat stage = Hired.</p>
+          <p className="text-muted-foreground">Move stages, and automatically create an employee when stage is set to Hired.</p>
         </div>
 
         <div className="flex items-center gap-2">

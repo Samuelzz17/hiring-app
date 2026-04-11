@@ -21,12 +21,12 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
         <div className="mx-auto w-full max-w-5xl px-6 h-14 flex items-center justify-between">
           <Button variant="ghost" size="sm" asChild className="-ml-2 gap-1 text-slate-500 hover:text-slate-900">
             <Link href={`/jobs/${job.id}`}>
-              <ChevronLeft className="h-4 w-4" /> Kembali ke Detail
+              <ChevronLeft className="h-4 w-4" /> Back to details
             </Link>
           </Button>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-[10px] uppercase tracking-wider font-bold text-slate-400">
-              Form Aplikasi
+              Application Form
             </Badge>
           </div>
         </div>
@@ -37,8 +37,8 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
           {/* Main Form */}
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-1">
-              <h1 className="font-headline text-3xl font-bold text-slate-900">Kirim Lamaran</h1>
-              <p className="text-slate-500">Silakan lengkapi data diri Anda dan lampirkan CV terbaru.</p>
+              <h1 className="font-headline text-3xl font-bold text-slate-900">Submit Application</h1>
+              <p className="text-slate-500">Please complete your personal details and attach your latest CV.</p>
             </div>
 
             <form action={applyToJobAction} className="space-y-6">
@@ -48,12 +48,12 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                 <CardHeader className="pb-4 border-b bg-slate-50/30">
                   <div className="flex items-center gap-2">
                     <User className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-lg text-slate-800">Informasi Pribadi</CardTitle>
+                    <CardTitle className="text-lg text-slate-800">Personal Information</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6 space-y-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="name" className="text-sm font-semibold text-slate-700">Nama Lengkap</Label>
+                    <Label htmlFor="name" className="text-sm font-semibold text-slate-700">Full Name</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                       <Input id="name" name="name" placeholder="John Doe" className="pl-10 h-11" required />
@@ -69,7 +69,7 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                       </div>
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="phone" className="text-sm font-semibold text-slate-700">No. HP (WhatsApp)</Label>
+                      <Label htmlFor="phone" className="text-sm font-semibold text-slate-700">Phone No. (WhatsApp)</Label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                         <Input id="phone" name="phone" placeholder="+62 812..." className="pl-10 h-11" />
@@ -78,7 +78,7 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                   </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="linkedIn" className="text-sm font-semibold text-slate-700">Profil LinkedIn</Label>
+                    <Label htmlFor="linkedIn" className="text-sm font-semibold text-slate-700">LinkedIn Profile</Label>
                     <div className="relative">
                       <Linkedin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                       <Input id="linkedIn" name="linkedIn" placeholder="https://linkedin.com/in/username" className="pl-10 h-11" />
@@ -91,7 +91,7 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                 <CardHeader className="pb-4 border-b bg-slate-50/30">
                   <div className="flex items-center gap-2">
                     <FileUp className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-lg text-slate-800">Lampiran CV (PDF)</CardTitle>
+                    <CardTitle className="text-lg text-slate-800">CV Attachment (PDF)</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6 space-y-6">
@@ -109,8 +109,8 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                         <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
                           <FileUp className="h-6 w-6 text-slate-400 group-hover:text-primary" />
                         </div>
-                        <p className="font-medium text-slate-700">Klik atau tarik file ke sini untuk upload</p>
-                        <p className="text-xs text-slate-400">PDF, DOCX, atau TXT (Max. 10MB)</p>
+                        <p className="font-medium text-slate-700">Click or drag file here to upload</p>
+                        <p className="text-xs text-slate-400">PDF, DOCX, or TXT (Max. 10MB)</p>
                       </div>
                     </div>
                   </div>
@@ -120,19 +120,19 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
                       <span className="w-full border-t border-slate-200" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-white px-3 text-slate-400 font-bold">Atau</span>
+                      <span className="bg-white px-3 text-slate-400 font-bold">Or</span>
                     </div>
                   </div>
 
                   <div className="grid gap-2">
                     <Label htmlFor="cvText" className="text-sm font-semibold text-slate-700 flex items-center gap-2">
-                      <ClipboardList className="h-4 w-4" /> Paste Isi CV (Opsional)
+                      <ClipboardList className="h-4 w-4" /> Paste CV Content (Optional)
                     </Label>
                     <Textarea 
                       id="cvText" 
                       name="cvText" 
                       rows={8} 
-                      placeholder="Jika tidak ingin upload file, Anda bisa langsung paste isi CV di sini..." 
+                      placeholder="If you don't want to upload a file, you can paste the CV content here..." 
                       className="bg-slate-50/50 resize-none font-mono text-sm"
                     />
                   </div>
@@ -141,10 +141,10 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
 
               <div className="flex flex-col gap-4">
                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20" disabled={job.status !== 'OPEN'}>
-                  Kirim Lamaran Sekarang
+                  Submit Application Now
                 </Button>
                 <p className="text-[11px] text-center text-slate-400">
-                  Dengan menekan tombol di atas, Anda menyetujui data Anda diolah untuk keperluan rekrutmen.
+                  By clicking the button above, you agree to your data being processed for recruitment purposes.
                 </p>
               </div>
             </form>
@@ -155,26 +155,26 @@ export default async function ApplyPage({ params }: { params: { jobId: string } 
             <Card className="bg-primary/5 border-primary/10 overflow-hidden">
                <div className="p-4 bg-primary/10 border-b border-primary/10">
                  <h3 className="font-bold text-primary flex items-center gap-2">
-                    <Info className="h-4 w-4" /> Mengapa PDF?
+                    <Info className="h-4 w-4" /> Why PDF?
                  </h3>
                </div>
                <CardContent className="p-4 text-sm text-slate-600 space-y-3">
-                  <p>Sistem AI kami dapat menganalisis format PDF dengan lebih akurat untuk menghitung skor kecocokan Anda.</p>
+                  <p>Our AI system can analyze PDF formats more accurately to calculate your fit score.</p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-3 w-3 mt-1 text-primary" />
-                      <span>Format tetap terjaga</span>
+                      <span>Format remains intact</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-3 w-3 mt-1 text-primary" />
-                      <span>Parsing data lebih cepat</span>
+                      <span>Faster data parsing</span>
                     </li>
                   </ul>
                </CardContent>
             </Card>
 
             <div className="p-6 border rounded-xl bg-white space-y-4">
-              <h4 className="font-bold text-slate-800 border-b pb-2">Posisi Yang Dilamar</h4>
+              <h4 className="font-bold text-slate-800 border-b pb-2">Position Applied For</h4>
               <div className="space-y-2">
                 <p className="font-bold text-primary">{job.title}</p>
                 <div className="space-y-1 text-sm text-slate-500">
