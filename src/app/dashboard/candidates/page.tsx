@@ -5,7 +5,7 @@ import { listBoardCandidates, listJobs } from '@/db/recruiting';
 import type { Candidate } from '@/lib/types';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { SeedButton } from '@/components/dashboard/seed-button';
+
 
 export default async function CandidatesPage({
   searchParams,
@@ -60,7 +60,6 @@ export default async function CandidatesPage({
             <Button asChild size="sm">
               <Link href="/dashboard/jobs">Post Job</Link>
             </Button>
-            <SeedButton />
           </div>
       </div>
 
