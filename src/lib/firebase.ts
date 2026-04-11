@@ -5,14 +5,19 @@ import { getAuth, Auth } from "firebase/auth";
 import { getFirestore, Firestore } from "firebase/firestore";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 
+function cleanEnv(val: string | undefined): string | undefined {
+  if (!val) return val;
+  return val.replace(/^["'](.*)["']$/, '$1');
+}
+
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDAmif7Ey6Y7E_uFJH3i5DAAZOYpoHcVFU",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "hiring-app-4679d.firebaseapp.com",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "hiring-app-4679d",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "hiring-app-4679d.firebasestorage.app",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "706162478968",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:706162478968:web:161becd68690c36253028d",
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-8JLMDWN0T2"
+  apiKey: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_API_KEY) || "AIzaSyDAmif7Ey6Y7E_uFJH3i5DAAZOYpoHcVFU",
+  authDomain: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN) || "hiring-app-4679d.firebaseapp.com",
+  projectId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) || "hiring-app-4679d",
+  storageBucket: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET) || "hiring-app-4679d.firebasestorage.app",
+  messagingSenderId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID) || "706162478968",
+  appId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_APP_ID) || "1:706162478968:web:161becd68690c36253028d",
+  measurementId: cleanEnv(process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID) || "G-8JLMDWN0T2"
 };
 
 let app: FirebaseApp | null = null;
