@@ -11,8 +11,8 @@ type StageColumnProps = {
 
 export default function StageColumn({ title, candidates }: StageColumnProps) {
   return (
-    <Card className="flex h-full flex-col">
-      <CardHeader className="p-4">
+    <Card className="flex flex-col min-w-[300px] w-[320px] shrink-0 snap-center border-slate-200 shadow-sm max-h-[70vh]">
+      <CardHeader className="p-4 bg-slate-50/50 border-b">
         <CardTitle className="flex items-center justify-between text-lg font-semibold">
           <span>{STAGE_LABEL[title]}</span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-sm font-medium text-muted-foreground">

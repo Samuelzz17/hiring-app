@@ -10,7 +10,7 @@ type CandidateBoardProps = {
 
 export default function CandidateBoard({ candidates }: CandidateBoardProps) {
   return (
-    <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-6">
+    <div className="flex overflow-x-auto pb-6 gap-6 items-start min-h-[600px] w-full snap-x">
       {STAGES.map((stage) => {
         const candidatesInStage = candidates.filter((c) => c.stage === stage);
         return (
