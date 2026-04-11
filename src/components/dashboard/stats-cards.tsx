@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Briefcase, Users, UserCheck } from "lucide-react";
 
 interface StatCardProps {
   title: string;
@@ -42,21 +42,21 @@ export function StatsGrid({
         title="Total Jobs" 
         value={totalJobs} 
         description="Active job postings" 
-        icon={require("lucide-react").Briefcase} 
+        icon={Briefcase} 
         colorClass="bg-blue-100 text-blue-700"
       />
       <StatCard 
         title="Active Applications" 
         value={activeApplications} 
         description="Candidates in funnel" 
-        icon={require("lucide-react").Users} 
+        icon={Users} 
         colorClass="bg-green-100 text-green-700"
       />
       <StatCard 
         title="Total Employees" 
         value={totalEmployees} 
         description="Successful hires" 
-        icon={require("lucide-react").UserCheck} 
+        icon={UserCheck} 
         colorClass="bg-purple-100 text-purple-700"
       />
     </div>
