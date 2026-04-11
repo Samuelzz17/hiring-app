@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Database, Loader2 } from "lucide-react";
-import { seedDatabase } from "@/lib/seed";
+import { runSeedAction } from "@/app/_actions/seed";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -13,16 +13,16 @@ export function SeedButton() {
   const router = useRouter();
 
   const handleSeed = async () => {
-    if (!confirm("Are you sure you want to seed the database? This will add sample jobs and candidates.")) {
+    if (!confirm("Are you sure you want to seed the database? This will add sample jobs and candidates using Admin privileges.")) {
       return;
     }
 
     setLoading(true);
     try {
-      await seedDatabase();
+      await runSeedAction();
       toast({
         title: "Database Seeded",
-        description: "Sample data has been added successfully.",
+        description: "Sample data has been added successfully using Admin SDK.",
       });
       router.refresh();
     } catch (error: any) {
@@ -49,7 +49,7 @@ export function SeedButton() {
       ) : (
         <Database className="h-4 w-4" />
       )}
-      Seed System Data
+      Seed System Data (Admin)
     </Button>
   );
 }
