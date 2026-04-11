@@ -4,8 +4,9 @@ import { useSearchParams } from "next/navigation";
 import { AuthForm } from "@/components/auth/auth-form";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { Suspense } from "react";
 
-export default function LoginPage() {
+function LoginContent() {
   const searchParams = useSearchParams();
   const isAdmin = searchParams.get("role") === "admin";
 
@@ -31,5 +32,17 @@ export default function LoginPage() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50">
+        <div className="text-muted-foreground">Loading...</div>
+      </main>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
