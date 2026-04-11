@@ -42,7 +42,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(firebaseUser);
       
       if (firebaseUser) {
+        // We are fetching a profile, so we should consider it loading
+        setLoading(true);
         try {
+          if (!db) throw new Error("Firestore not initialized");
           // Fetch profile from Firestore
           const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
           if (userDoc.exists()) {
