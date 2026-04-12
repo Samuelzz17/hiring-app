@@ -6,7 +6,7 @@ import { getFirestore, Firestore } from "firebase/firestore";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 
 function cleanEnv(val: string | undefined): string | undefined {
-  if (!val) return val;
+  if (!val || val === "undefined" || val === "null") return undefined;
   return val.replace(/^["'](.*)["']$/, '$1');
 }
 
@@ -25,9 +25,7 @@ let auth: Auth | null = null;
 let db: Firestore | null = null;
 let storage: FirebaseStorage | null = null;
 
-const isConfigValid = firebaseConfig.apiKey && 
-                  firebaseConfig.apiKey !== "undefined" && 
-                  firebaseConfig.apiKey !== "null";
+const isConfigValid = !!firebaseConfig.apiKey;
 
 if (isConfigValid) {
   app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);

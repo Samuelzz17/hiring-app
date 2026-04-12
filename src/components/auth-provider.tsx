@@ -39,18 +39,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
+      console.log("Auth state changed:", firebaseUser?.email);
       
       if (firebaseUser) {
-        // We are fetching a profile, so we should consider it loading
         setLoading(true);
         try {
           if (!db) throw new Error("Firestore not initialized");
-          // Fetch profile from Firestore
+          
+          console.log("Fetching profile for UID:", firebaseUser.uid);
           const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+          
           if (userDoc.exists()) {
-            setProfile(userDoc.data() as UserProfile);
+            const data = userDoc.data() as UserProfile;
+            console.log("Profile found, role:", data.role);
+            setProfile(data);
           } else {
+            console.warn("No Firestore profile document found for user.");
             setProfile(null);
           }
         } catch (error) {
@@ -58,9 +62,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setProfile(null);
         }
       } else {
+        console.log("No user session found.");
         setProfile(null);
       }
       
+      setUser(firebaseUser);
       setLoading(false);
     });
 
