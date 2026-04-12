@@ -6,9 +6,10 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
   updateProfile,
-  signInAnonymously
+  signInAnonymously,
+  signOut
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,15 +60,25 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
           description: "Welcome to JobFlow!",
         });
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
+        if (userType === "admin") {
+          // Double check admin role
+          const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+          if (!userDoc.exists() || userDoc.data()?.role !== "admin") {
+            await signOut(auth);
+            throw new Error("Akses ditolak. Anda tidak memiliki izin Admin.");
+          }
+        }
+
         toast({
           title: "Logged in",
           description: "Welcome back!",
         });
       }
 
-      router.push(userType === "admin" ? "/dashboard" : "/jobs");
-      router.refresh();
+      // Gunakan window.location.href untuk hard navigation demi mencegah cache Next.js App Router yang mem-prefetch halaman /dashboard dalam keadaaan logout (membuat redirect loop).
+      window.location.href = userType === "admin" ? "/dashboard" : "/jobs";
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -101,8 +112,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type, userType }) => {
         description: "Welcome to JobFlow!",
       });
 
-      router.push("/jobs");
-      router.refresh();
+      // Hard navigation for guest too
+      window.location.href = "/jobs";
     } catch (error: any) {
       toast({
         variant: "destructive",
